@@ -9,6 +9,7 @@ import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
 import { chakraTheme, materialTheme } from "./theme.tsx";
 import { CssBaseline } from "@mui/joy";
 import "./i18n.tsx";
+import "./styles/code.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

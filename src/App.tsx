@@ -1,8 +1,12 @@
-import { Button } from "@mui/joy";
+import { Button, Container } from "@mui/joy";
+import A from "./a.mdx";
 
 function App() {
   return (
     <>
+      <Container>
+        <A />
+      </Container>
       <Button>Button</Button>
     </>
   );

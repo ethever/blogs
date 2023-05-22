@@ -27,7 +27,7 @@ export const chakraTheme = extendTheme({
     },
   },
   fontFamily: {
-    body: "Inter, var(--chakra-fontFamily-fallback)",
+    // body: "Inter, var(--chakra-fontFamily-fallback)",
   },
   components: {
     JoyButton: {
