@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/joy": "5.0.0-alpha.78",
     "@mui/material": "^5.12.3",
+    "@mui/system": "^5.13.2",
     "highlight.js": "^11.8.0",
     "i18next": "^22.5.0",
     "jotai": "^2.1.0",

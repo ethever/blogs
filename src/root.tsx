@@ -1,4 +1,4 @@
-import { CssBaseline } from "@mui/joy";
+import { CssBaseline, GlobalStyles } from "@mui/joy";
 import App from "./App.tsx";
 import {
   Experimental_CssVarsProvider as MaterialCssVarsProvider,
@@ -14,6 +14,17 @@ export const Root = () => {
       <MaterialCssVarsProvider theme={{ [THEME_ID]: materialTheme }}>
         <JoyCssVarsProvider theme={chakraTheme}>
           <CssBaseline />
+          <GlobalStyles
+            styles={{
+              body: {
+                width: "100%",
+                height: "100vh",
+              },
+              "#root": {
+                height: "100%",
+              },
+            }}
+          />
           <App />
         </JoyCssVarsProvider>
       </MaterialCssVarsProvider>

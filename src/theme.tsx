@@ -16,6 +16,12 @@ declare module "@mui/joy/styles" {
   }
 }
 
+declare module "@mui/system" {
+  interface BreakpointOverrides {
+    ss: true;
+  }
+}
+
 export const chakraTheme = extendTheme({
   colorSchemes: {
     light: {
@@ -38,8 +44,9 @@ export const chakraTheme = extendTheme({
   breakpoints: {
     values: {
       xs: 0,
+      ss: 300,
       sm: 500,
-      md: 760,
+      md: 730,
       lg: 1000,
       xl: 1200,
     },
