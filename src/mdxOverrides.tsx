@@ -1,6 +1,6 @@
 import { Components, MergeComponents } from "@mdx-js/react/lib";
 import { StyledTitle } from "./components/StyledTitle";
-import { Typography } from "@mui/joy";
+import { Box, Typography } from "@mui/joy";
 
 type TComponents = MergeComponents | Components | null | undefined;
 
@@ -58,6 +58,27 @@ export const components: TComponents = {
     >
       {children}
     </StyledTitle>
+  ),
+  blockquote: (props) => (
+    <Box
+      component="blockquote"
+      sx={(theme) => ({
+        display: "block",
+        margin: 0,
+        marginBlockStart: "1em",
+        marginBlockEnd: "1em",
+        borderLeft: `5px solid ${theme.vars.palette.primary.blockquoteBorderColor}`,
+      })}
+    >
+      <Typography
+        component="p"
+        sx={{
+          marginLeft: "10px",
+        }}
+      >
+        {props.children}
+      </Typography>
+    </Box>
   ),
   p: ({ children }) => <Typography>{children}</Typography>,
   code: ({ className, children }) => {

@@ -12,7 +12,11 @@ export const Root = () => {
   return (
     <React.StrictMode>
       <MaterialCssVarsProvider theme={{ [THEME_ID]: materialTheme }}>
-        <JoyCssVarsProvider theme={chakraTheme}>
+        <JoyCssVarsProvider
+          theme={chakraTheme}
+          defaultColorScheme="dark"
+          defaultMode="dark"
+        >
           <CssBaseline />
           <GlobalStyles
             styles={{

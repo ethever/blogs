@@ -1,10 +1,20 @@
+import { useTheme } from "@mui/joy";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
 export default function DrawerAppBar() {
+  const theme = useTheme();
+
   return (
-    <AppBar component="nav" elevation={0} position="sticky">
+    <AppBar
+      component="nav"
+      elevation={0}
+      position="sticky"
+      sx={{
+        background: theme.vars.palette.primary.appBarBg,
+      }}
+    >
       <Toolbar>
         <Typography
           variant="h6"

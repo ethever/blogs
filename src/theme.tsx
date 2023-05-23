@@ -11,22 +11,35 @@ declare module "@mui/joy/styles" {
 
   interface Palette {
     primary: {
+      appBarBg: string;
+      appBarBgActived: string;
       inlineCode: string;
+      blockquoteBorder: string;
+      blockquoteBorderColor: string;
     };
-  }
-}
-
-declare module "@mui/system" {
-  interface BreakpointOverrides {
-    ss: true;
   }
 }
 
 export const chakraTheme = extendTheme({
   colorSchemes: {
+    dark: {
+      palette: {
+        primary: {
+          appBarBg: "transparent",
+          appBarBgActived: "transparent",
+          blockquoteBorderColor: "brown",
+          blockquoteBorder: "5px solid brown",
+          inlineCode: "#0c111b",
+        },
+      },
+    },
     light: {
       palette: {
         primary: {
+          appBarBg: "transparent",
+          appBarBgActived: "transparent",
+          blockquoteBorderColor: "red",
+          blockquoteBorder: "5px solid brown",
           inlineCode: "#0c111b",
           solidBg: "#319795",
           solidHoverBg: "#2C7A7B",
@@ -44,7 +57,6 @@ export const chakraTheme = extendTheme({
   breakpoints: {
     values: {
       xs: 0,
-      ss: 300,
       sm: 500,
       md: 730,
       lg: 1000,

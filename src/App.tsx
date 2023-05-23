@@ -16,7 +16,7 @@ function App() {
         }}
       >
         <Box
-          maxWidth="ss"
+          maxWidth="300px"
           width="100%"
           sx={{
             display: "flex",
@@ -37,7 +37,7 @@ function App() {
         >
           <A />
         </Box>
-        <Box maxWidth="ss" width="100%">
+        <Box maxWidth="300px" width="100%">
           Ethever.eth's blogs
         </Box>
       </CenteredContainer>
