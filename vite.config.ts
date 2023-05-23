@@ -4,6 +4,8 @@ import mdx from "@mdx-js/rollup";
 import remarkMath from "remark-math";
 import rehypeMathjax from "rehype-mathjax";
 import rehypeHighlight from "rehype-highlight";
+import haskell from "highlight.js/lib/languages/haskell";
+import unfonts from "unplugin-fonts/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,9 +15,16 @@ export default defineConfig({
       ...mdx({
         providerImportSource: "@mdx-js/react",
         remarkPlugins: [remarkMath],
-        rehypePlugins: [rehypeMathjax, rehypeHighlight],
+        rehypePlugins: [
+          rehypeMathjax,
+          () =>
+            rehypeHighlight({
+              languages: { haskell: haskell },
+            }),
+        ],
       }),
     },
+    unfonts({ google: { families: ["Josefin Sans", "Nanum Gothic"] } }),
     react(),
   ],
   // build: { minify: false },

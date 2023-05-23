@@ -1,14 +1,20 @@
-import { Button, Container } from "@mui/joy";
-import A from "./a.mdx";
+import { Box } from "@mui/joy";
+import A from "./blogs/a.mdx";
+import { CenteredContainer } from "./components/CenteredContainer";
+import { MDXProvider } from "@mdx-js/react";
+import { components } from "./mdxOverrides";
+import DrawerAppBar from "./components/AppBar";
 
 function App() {
   return (
-    <>
-      <Container>
-        <A />
-      </Container>
-      <Button>Button</Button>
-    </>
+    <MDXProvider components={components}>
+      <DrawerAppBar />
+      <CenteredContainer>
+        <Box maxWidth="md" width="100%">
+          <A />
+        </Box>
+      </CenteredContainer>
+    </MDXProvider>
   );
 }
 
