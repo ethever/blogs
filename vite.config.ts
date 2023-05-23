@@ -6,6 +6,7 @@ import rehypeMathjax from "rehype-mathjax";
 import rehypeHighlight from "rehype-highlight";
 import haskell from "highlight.js/lib/languages/haskell";
 import unfonts from "unplugin-fonts/vite";
+import remarkGfm from "remark-gfm";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -14,7 +15,7 @@ export default defineConfig({
       enforce: "pre",
       ...mdx({
         providerImportSource: "@mdx-js/react",
-        remarkPlugins: [remarkMath],
+        remarkPlugins: [remarkMath, remarkGfm],
         rehypePlugins: [
           rehypeMathjax,
           () =>
