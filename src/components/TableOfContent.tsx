@@ -1,9 +1,9 @@
 import { useAtom } from "jotai";
-import { currentPageComponentAtom } from "../state";
 import { Box, List, ListItemButton } from "@mui/joy";
+import { currentPageComponentAtom } from "../state";
 
 export default function TableOfContent() {
-  const [Page] = useAtom(currentPageComponentAtom);
+  const [{ page: Page }] = useAtom(currentPageComponentAtom);
 
   return (
     <Page fallback={<div>loading table of content.</div>}>
@@ -21,7 +21,11 @@ export default function TableOfContent() {
               {toc.map((t) => {
                 return (
                   <>
-                    <ListItemButton component="a" href={`#${t.attributes.id}`}>
+                    <ListItemButton
+                      key={t.value}
+                      component="a"
+                      href={`#${t.attributes.id}`}
+                    >
                       {t.value}
                     </ListItemButton>
                     {t.children.length !== 0 && (
@@ -29,6 +33,7 @@ export default function TableOfContent() {
                         {t.children.map((c) => {
                           return (
                             <ListItemButton
+                              key={t.value}
                               component="a"
                               href={`#${t.attributes.id}`}
                             >

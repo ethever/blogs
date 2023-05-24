@@ -5,6 +5,8 @@ import remarkMath from "remark-math";
 import rehypeMathjax from "rehype-mathjax";
 import rehypeHighlight from "rehype-highlight";
 import haskell from "highlight.js/lib/languages/haskell";
+import bash from "highlight.js/lib/languages/bash";
+import shell from "highlight.js/lib/languages/shell";
 import unfonts from "unplugin-fonts/vite";
 import remarkGfm from "remark-gfm";
 // import rehypePrettyCode from "rehype-pretty-code";
@@ -33,7 +35,7 @@ export default defineConfig({
           [
             rehypeHighlight,
             {
-              languages: { haskell: haskell },
+              languages: { haskell, shell, bash },
             },
           ],
         ],

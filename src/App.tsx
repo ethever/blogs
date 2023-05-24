@@ -4,6 +4,7 @@ import { components } from "./mdxOverrides";
 import DrawerAppBar from "./components/AppBar";
 import { ContentView } from "./components/ContentView";
 import TableOfContent from "./components/TableOfContent";
+import AllPost from "./components/AllPost";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           }}
         >
           <DrawerAppBar />
+          <AllPost />
         </Box>
         <Box
           maxWidth="md"

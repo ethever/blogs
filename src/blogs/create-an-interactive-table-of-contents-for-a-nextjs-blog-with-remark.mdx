@@ -1,0 +1,298 @@
+# Introduction
+
+A table of contents offers numerous benefits and is a valuable addition to websites, particularly blogs.
+A well-organized and easily navigable table of contents significantly enhances the user experience,
+simplifying for readers the process of finding the information they need.
+By incorporating a table of contents, you not only streamline navigation for your readers
+but also improve the overall accessibility and usability of your content.
+
+In this post, we'll go through the necessary steps to create an interactive table
+of contents for a Next.js blog using Remark, a powerful Markdown processor. While
+some Remark plugins like Remark-toc provide this functionality, the generated
+table of contents is placed within the content itself, limiting its potential uses.
+For instance, on this blog, the table of contents is rendered outside the blog
+content, making it visible during post navigation. This is the type of table of
+contents we will build in this tutorial. We'll start by briefly discussing the
+fundamentals of Remark, its plugins, and how it integrates with Next.js. Then,
+we'll dive into the practical steps of implementing a custom table of contents,
+and finally, we'll make it interactive so that clicking on a table of contents
+item will scroll the page to its corresponding section.
+
+# Remark and its plugins
+
+Remark is an extensible Markdown processor that simplifies the process
+of converting Markdown files into HTML or other formats.
+The key aspect of Remark is its plugin-based architecture,
+which enables developers to extend and customize its functionality.
+These plugins can handle tasks like syntax highlighting, adding a table of contents,
+or parsing custom Markdown syntax. Integrating Remark with Next.js is
+straightforward — typically, it is used in conjunction with the getStaticProps
+function to process Markdown files during the build process.
+It can also process MDX files, making it a viable option for Next.js
+websites using the new "app" directory. Remark's powerful processing
+capabilities and seamless integration with Next.js make it an ideal choice for
+enhancing content and user experience in Next.js-based blogs and websites.
+
+# Getting started
+
+Although we are building a custom table of contents, we won't have to write
+everything from scratch. To separate the Markdown/MDX content from the front matter,
+we'll use the Gray-matter package. It is optional in case you don't have front
+matter in your Markdown files. To process the Markdown itself, we'll use the
+Remark package. We'll also need the unist-util-visit package for traversing
+node trees and mdast-util-to-string for getting the text content of a node.
+
+Let's install all these packages.
+
+```bash
+npm i remark mdast-util-to-string gray-matter unist-util-visit
+```
+
+> If you're curious about setting up continuous deployment for your website
+> with GitHub actions, you may find this article interesting: Automate Your
+> Deployment Workflow: Continuously Deploying Next.js Website to DigitalOcean
+> Using GitHub Actions.
+
+# Custom Remark plugin for extracting headings from the content
+
+Before rendering the table of contents, we must extract all the headings
+from the Markdown file and organize them into an array of nodes.
+This process can be divided into several steps:
+
+1. Parse the file contents to separate the front matter from the content.
+2. Generate IDs for each of the heading elements. This will be necessary for implementing the scroll-to-section functionality later.
+3. Parse the content, extracting the headings and their attributes.
+
+For step 2, we could manually add the IDs as custom Markdown attributes, e.g., and then use a library like
+Remark-heading-id to render them into HTML.
+However, this approach requires manual work to add and maintain those headings.
+A more efficient method is to automatically generate the IDs from the heading text itself,
+so the heading Heading 1 will automatically receive an ID of heading-1 when transformed into HTML.
+
+Additionally, we can combine steps 2 and 3 by creating a custom Remark plugin.
+
+```javascript
+export function headingTree() {
+  return (node, file) => {
+    file.data.headings = getHeadings(node);
+  };
+}
+
+function getHeadings(root) {
+  const nodes = {};
+  const output = [];
+  const indexMap = {};
+  visit(root, "heading", (node) => {
+    addID(node, nodes);
+    transformNode(node, output, indexMap);
+  });
+  return output;
+}
+```
+
+Here, we have our custom Remark plugin - `headingTree`,
+which extracts the `headings` from the document and adds them as a headings attribute to the processed content.
+
+The main component of the plugin is the `getHeadings` function, a visitor function that traverses a tree of nodes and manipulates them. For improved readability, the function is split into two parts.
+
+The `addID` function iterates through the heading nodes in the document, replaces all their special
+characters, and outputs them as lowercase strings with spaces replaced by dashes.
+The IDs will be stored in the `hProperties` attribute of the heading.
+
+```js
+/*
+ * Add an "id" attribute to the heading elements based on their content
+ */
+function addID(node, nodes) {
+  const id = node.children.map((c) => c.value).join("");
+  nodes[id] = (nodes[id] || 0) + 1;
+  node.data = node.data || {
+    hProperties: {
+      id: `${id}${nodes[id] > 1 ? ` ${nodes[id] - 1}` : ""}`
+        .replace(/[^a-zA-Z\d\s-]/g, "")
+        .split(" ")
+        .join("-")
+        .toLowerCase(),
+    },
+  };
+}
+```
+
+Note that we use the nodes variable to track the number of occurrences of each heading. This is done so that we can prefix the headings that appear more than once in the document (e.g., some sections can have subheadings with the same text) with a number.
+
+The transformNode function takes a node from the parsed Markdown Abstract Syntax Tree (AST) and transforms it into a more usable format for building a table of contents.
+
+```js
+import { toString } from "mdast-util-to-string";
+
+function transformNode(node, output, indexMap) {
+  const transformedNode = {
+    value: toString(node),
+    depth: node.depth,
+    data: node.data,
+    children: [],
+  };
+
+  if (node.depth === 2) {
+    output.push(transformedNode);
+    indexMap[node.depth] = transformedNode;
+  } else {
+    const parent = indexMap[node.depth - 1];
+    if (parent) {
+      parent.children.push(transformedNode);
+      indexMap[node.depth] = transformedNode;
+    }
+  }
+}
+```
+
+```js
+import matter from "gray-matter";
+import { remark } from "remark";
+
+import { headingTree } from "./headings";
+
+const postsDirectory = path.join(process.cwd(), "posts");
+
+export async function getHeadings(id) {
+  const fullPath = path.join(postsDirectory, `${id}.mdx`);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+
+  // Use gray-matter to parse the post metadata section
+  const matterResult = matter(fileContents);
+
+  // Use remark to convert Markdown into HTML string
+  const processedContent = await remark()
+    .use(headingTree)
+    .process(matterResult.content);
+
+  return processedContent.data.headings;
+}
+```
+
+With this, we have an array of headings from a document, plus their data attributes. The array has the following structure.
+
+```js
+[
+  {
+    value: "Heading 1",
+    depth: 2,
+    data: { hProperties: { id: "heading-1" } },
+    children: [
+      {
+        value: "Heading 2",
+        depth: 3,
+        data: { hProperties: { id: "heading-2" } },
+        children: [
+          {
+            value: "Heading 3",
+            depth: 4,
+            data: { hProperties: { id: "heading-3" } },
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    value: "Heading 4",
+    depth: 2,
+    data: { hProperties: { id: "heading-4" } },
+    children: [],
+  },
+];
+```
+
+# Rendering the table of contents
+
+Now that we have the heading data, we can use it to render the table of contents. To start, we'll create a TableOfContents component, which will be a wrapper for the table of contents rendering logic.
+
+```js
+"use client";
+
+export const TableOfContents = ({ nodes }) => {
+  if (!nodes?.length) {
+    return null;
+  }
+
+  return (
+    <div className={"toc"}>
+      <h3 className={"secondary-text"}>Table of contents</h3>
+      {renderNodes(nodes)}
+    </div>
+  );
+};
+```
+
+Note that if you're using the Next.js "app" directory, you need to use the "use client" directive to mark this component as a client-side one.
+
+The actual rendering of the table of contents will be managed by the renderNodes function. We employ a separate function rather than defining it inside the component due to the rendering logic being recursive.
+
+```js
+function renderNodes(nodes) {
+  return (
+    <ul>
+      {nodes.map((node) => (
+        <li key={node.data.hProperties.id}>
+          <a href={`#${node.data.hProperties.id}`}>{node.value}</a>
+          {node.children?.length > 0 && renderNodes(node.children)}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+Each of the table of contents elements is a link that points to the ID of the respective header via its href attribute.
+
+# Adding smooth scrolling when clicking a table of contents link
+
+The basic table of contents is complete. Within the page where we render our post, we can obtain the headings by calling await getHeadings(postId) (or by doing this within getStaticProps if you're using the "pages" directory) and pass the data to the TableOfContents component. On the post page, when we click on a table of contents link, we should be navigated to the corresponding section of the page. However, instead of abruptly jumping to the header, we can enable smooth scrolling. As an additional enhancement, we can progressively decrease the sublink font size based on its depth.
+
+To achieve this, we will introduce a TOCLink component responsible for both smooth scrolling and individual link styles, which we will then use within renderNodes.
+
+```js
+function renderNodes(nodes) {
+  return (
+    <ul>
+      {nodes.map((node) => (
+        <li key={node.data.hProperties.id}>
+          <TOCLink node={node} />
+          {node.children?.length > 0 && renderNodes(node.children)}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+const TOCLink = ({ node }) => {
+  const fontSizes = { 2: "base", 3: "sm", 4: "xs" };
+  const id = node.data.hProperties.id;
+  return (
+    <a
+      href={`#${id}`}
+      className={`block text-${fontSizes[node.depth]} hover:accent-color py-1`}
+      onClick={(e) => {
+        e.preventDefault();
+        document
+          .getElementById(id)
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }}
+    >
+      {node.value}
+    </a>
+  );
+};
+```
+
+To smoothly scroll to a specific element on a webpage, we first locate the element using its ID and then apply the scrollIntoView method with the behavior: "smooth" option. For more information about this method, refer to the MDN website. The method boasts extensive browser support; however, the smooth option may not be compatible with some older browsers. By employing this approach, clicking on a table of contents link now results in a nice scrolling animation, as opposed to the previously abrupt transition.
+
+> If you need to add an offset to your heading elements when they are scrolled to (e.g., when the page has a fixed navbar), you can apply the scroll-margin-top CSS property to the heading elements.
+
+Additionally, we can progressively decrease the font size of the table of contents links in relation to their depth using TailwindCSS and its text utility classes.
+
+# Highlighting active links
+
+A final touch to enhance the table of contents navigation is highlighting the table of contents links when their corresponding headers are in view on the page.
+
+To detect an element's visibility on the page, we will use the Intersection Observer API, which has good browser support with some minor caveats. Furthermore, we will transfer this functionality to a custom hook that returns a boolean indicating if a link is highlighted and provides a callback for setting the highlighted state manually. This hook will be utilized within the TOCLink component.

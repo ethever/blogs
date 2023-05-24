@@ -1,6 +1,5 @@
 declare module "*.mdx" {
+  export default sss;
   export const title: string;
   export const toc: unknown;
-  // const toc: MTocEntry;
-  // export { title, toc };
 }

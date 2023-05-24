@@ -23,6 +23,7 @@ export const Root = () => {
               body: {
                 width: "100%",
                 height: "100%",
+                overflowY: "scroll",
               },
               html: {
                 width: "100%",

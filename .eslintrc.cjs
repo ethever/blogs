@@ -14,7 +14,7 @@ module.exports = {
       },
       // optional, if you want to lint code blocks at the same time
       settings: {
-        "mdx/code-blocks": true,
+        "mdx/code-blocks": false,
         // optional, if you want to disable language mapper, set it to `false`
         // if you want to override the default language mapper inside, you can provide your own
         "mdx/language-mapper": {},
