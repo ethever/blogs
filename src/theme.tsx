@@ -17,6 +17,9 @@ declare module "@mui/joy/styles" {
       blockquoteBorder: string;
       blockquoteBorderColor: string;
     };
+    background: {
+      main: string;
+    };
   }
 }
 
@@ -30,6 +33,9 @@ export const chakraTheme = extendTheme({
           blockquoteBorderColor: "brown",
           blockquoteBorder: "5px solid brown",
           inlineCode: "#0c111b",
+        },
+        background: {
+          main: "tranparent",
         },
       },
     },

@@ -7,6 +7,11 @@ import rehypeHighlight from "rehype-highlight";
 import haskell from "highlight.js/lib/languages/haskell";
 import unfonts from "unplugin-fonts/vite";
 import remarkGfm from "remark-gfm";
+// import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import rehypeMdxTitle from "rehype-mdx-title";
+import { remarkMdxToc } from "remark-mdx-toc";
+import remarkNormalizeHeadings from "remark-normalize-headings";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,13 +20,28 @@ export default defineConfig({
       enforce: "pre",
       ...mdx({
         providerImportSource: "@mdx-js/react",
-        remarkPlugins: [remarkMath, remarkGfm],
         rehypePlugins: [
+          rehypeMdxTitle,
+          rehypeSlug,
           rehypeMathjax,
-          () =>
-            rehypeHighlight({
+          // [
+          //   rehypePrettyCode,
+          //   {
+          //     theme: "github-dark-dimmed",
+          //   },
+          // ],
+          [
+            rehypeHighlight,
+            {
               languages: { haskell: haskell },
-            }),
+            },
+          ],
+        ],
+        remarkPlugins: [
+          remarkMath,
+          remarkGfm,
+          remarkMdxToc,
+          remarkNormalizeHeadings,
         ],
       }),
     },

@@ -1,29 +1,32 @@
-import { Box } from "@mui/joy";
-import A from "./blogs/a.mdx";
-import { CenteredContainer } from "./components/CenteredContainer";
+import { Box, Container } from "@mui/joy";
 import { MDXProvider } from "@mdx-js/react";
 import { components } from "./mdxOverrides";
 import DrawerAppBar from "./components/AppBar";
+import { ContentView } from "./components/ContentView";
+import TableOfContent from "./components/TableOfContent";
 
 function App() {
   return (
     <MDXProvider components={components}>
-      <CenteredContainer
+      <Container
         maxWidth={false}
         sx={{
+          display: "flex",
           flexDirection: "row",
-          height: "100%",
+          justifyContent: "center",
+          minHeight: "100%",
         }}
       >
         <Box
           maxWidth="300px"
+          minHeight="100%"
           width="100%"
           sx={{
             display: "flex",
+            flexShrink: 0,
             flexDirection: "column",
             justifyContent: "flex-start",
             alignItems: "flex-start",
-            height: "100%",
           }}
         >
           <DrawerAppBar />
@@ -31,16 +34,17 @@ function App() {
         <Box
           maxWidth="md"
           width="100%"
-          sx={{
-            height: "100%",
-          }}
+          height="100%"
+          sx={(theme) => ({
+            background: theme.vars.palette.background.main,
+          })}
         >
-          <A />
+          <ContentView />
         </Box>
-        <Box maxWidth="300px" width="100%">
-          Ethever.eth's blogs
+        <Box maxWidth="300px" width="100%" minHeight="100%">
+          <TableOfContent />
         </Box>
-      </CenteredContainer>
+      </Container>
     </MDXProvider>
   );
 }

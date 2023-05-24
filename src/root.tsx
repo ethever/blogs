@@ -22,10 +22,16 @@ export const Root = () => {
             styles={{
               body: {
                 width: "100%",
-                height: "100vh",
+                height: "100%",
+              },
+              html: {
+                width: "100%",
+                height: "100%",
+                minHeight: "100vh",
               },
               "#root": {
                 height: "100%",
+                width: "100%",
               },
             }}
           />

@@ -1,63 +1,60 @@
 import { Components, MergeComponents } from "@mdx-js/react/lib";
 import { StyledTitle } from "./components/StyledTitle";
 import { Box, Typography } from "@mui/joy";
+import { ReactNode } from "react";
 
 type TComponents = MergeComponents | Components | null | undefined;
 
+type HeadingProps = {
+  children?: ReactNode;
+  id?: string;
+};
+
 export const components: TComponents = {
-  h1: ({ children }) => (
+  raw: () => {
+    return <div>raw</div>;
+  },
+  h1: (props: HeadingProps) => (
     <StyledTitle
-      id={children?.toString()}
       level="h1"
       sx={(theme) => ({ margin: `${theme.spacing(1.2)} 0` })}
-    >
-      {children}
-    </StyledTitle>
+      {...props}
+    />
   ),
-  h2: ({ children }) => (
+  h2: (props: HeadingProps) => (
     <StyledTitle
-      id={children?.toString()}
       level="h2"
+      {...props}
       sx={(theme) => ({ margin: `${theme.spacing(1.1)} 0` })}
-    >
-      {children}
-    </StyledTitle>
+    />
   ),
-  h3: ({ children }) => (
+  h3: (props: HeadingProps) => (
     <StyledTitle
       level="h3"
-      id={children?.toString()}
+      {...props}
       sx={(theme) => ({ margin: `${theme.spacing(1)} 0` })}
-    >
-      {children}
-    </StyledTitle>
+    />
   ),
-  h4: ({ children }) => (
+  h4: (props: HeadingProps) => (
     <StyledTitle
       level="h4"
-      id={children?.toString()}
+      {...props}
       sx={(theme) => ({ margin: `${theme.spacing(1)} 0` })}
-    >
-      {children}
-    </StyledTitle>
+    />
   ),
-  h5: ({ children }) => (
+  h5: (props: HeadingProps) => (
     <StyledTitle
       level="h5"
-      id={children?.toString()}
+      {...props}
       sx={(theme) => ({ margin: `${theme.spacing(0.9)} 0` })}
-    >
-      {children}
-    </StyledTitle>
+    />
   ),
-  h6: ({ children }) => (
+  h6: (props: HeadingProps) => (
     <StyledTitle
-      id={children?.toString()}
       level="h6"
+      {...props}
       sx={(theme) => ({ margin: `${theme.spacing(0.8)} 0` })}
-    >
-      {children}
-    </StyledTitle>
+    />
   ),
   blockquote: (props) => (
     <Box
