@@ -30,8 +30,15 @@ function App() {
             alignItems: "flex-start",
           }}
         >
-          <DrawerAppBar />
-          <AllPost />
+          <Box
+            sx={{
+              position: "sticky",
+              top: 0,
+            }}
+          >
+            <DrawerAppBar />
+            <AllPost />
+          </Box>
         </Box>
         <Box
           maxWidth="md"

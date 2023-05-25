@@ -10,7 +10,7 @@ export default function DrawerAppBar() {
     <AppBar
       component="nav"
       elevation={0}
-      position="sticky"
+      position="static"
       sx={{
         background: theme.vars.palette.primary.appBarBg,
       }}
