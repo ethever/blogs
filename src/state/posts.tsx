@@ -15,6 +15,9 @@ export const createAnInteractiveTOC = loadable.lib(
       "../blogs/create-an-interactive-table-of-contents-for-a-nextjs-blog-with-remark.mdx"
     )
 ) as Ta;
+export const originProtocol = loadable.lib(
+  () => import("../blogs/origin-protocol.mdx")
+) as Ta;
 
 export const posts = [
   {
@@ -25,4 +28,5 @@ export const posts = [
     page: createAnInteractiveTOC,
     title: "create an interactive table of contents",
   },
+  { page: originProtocol, title: "origin protocol" },
 ];
