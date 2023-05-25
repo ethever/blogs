@@ -8,8 +8,6 @@ export default function TableOfContent() {
   return (
     <Page fallback={<div>loading table of content.</div>}>
       {({ toc }) => {
-        console.error({ toc, value: toc });
-
         return (
           <Box
             sx={{
