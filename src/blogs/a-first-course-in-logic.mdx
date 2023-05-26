@@ -2,3 +2,123 @@ If we can find a polynomial time algorithm for determining whether or not a give
 or if we can show that no such algorithm exists, then we will resolve the $P=NP$ problem.[^1]
 
 [^1]: A First Course in Logic - An Introduction to Model Theory, Proof Theory, Computability, and Complexity.
+
+We show that, in a certain setting (namely, graph thery) the complexity classes of $P$ and $NP$ (and others) can be defined as logics.
+For example, Fagin's Theorem states that (for graphs) $NP$ contains precisely those decision problems that can be expressed in second-order
+exsitential logic. So the $N = NP$ problem and related questions can be rephrased as questions of whether or not two logics are equivalent.
+
+# Sets and strctures
+
+We assume that the reader is familiar with the fundamental notion of _a set_. We use standard set notation:
+
+- $x \in A$ means $x$ is an element of set $A$,
+- $x \notin A$ means $x$ is not an element of $A$,
+- $\varnothing$ denotes the unique set containing no elements,
+- $A \subset B$ means every element of set $A$ is also an element of set $B$,
+- $A \cup B$ denotes the union of sets $A$ and $B$,
+- $A \cap B$ denotes the intersection of sets $A$ and $B$, and
+- $A \times B$ denotes the Cartesian product of sets $A$ and $B$.
+
+# Propositional Logic
+
+## What is propositional logic?
+
+In propositional logic, atomic formulas are propositions. Any assertion will do. For example,
+
+- A = "Aristotle is dead"
+- B = "Barcelona is on the Seine
+
+are atomic formulas. Atomic formulas are the building blocks used to construct sentences. In any logic, a sentence is regarded as a particular
+type of formula. In propositional logic, there is no distinction between these two terms. We use "formula" and "sentence" interchangeably.
+
+...
+
+In fact that, the content of the propositions is not relevant to propositional logic. Henceforth, aotmic formulas are denoted only by capital
+letters $A$, $B$, $C$, ... (possibly with subscript) without referring to what these propositions actually say. The veracity of these formulas
+does not concern us. **Propositional logic is not the study of truth, but of the relationship between the truth of one statement and that of another.**
+
+$\neg$ for "not", $\land$ for "and", $\lor$ for "or", $\implies$ for "implies", and $\iff$ for "if and only if".
+
+**Rules:**
+
+- (R1): If $F$ is a formula, then $\neg F$ is also a formula.
+- (R2): If $F$ and $G$ are formulas, then $(F\land G)$ is a formula.
+
+**Definition 1.2** A finite string of symbols is a _formula_ of propositional logic if and only if it's built up from atomic formulas
+by repeated application of rules (R1) and (R2).
+
+- (C1): If $F$ or $(F)$ is a formula, then we view $F$ and $(F)$ as the same formula.
+
+The use of (C1) also requires care in defining the notion of "subformula". A subformula of a formula $F$ (viewed as a string of symbols)
+is a substring of $F$ that is itself a formula. However, because of (C1), not every such substring is a subformula. So we do not want to take
+this property as the definition of "subformula". Instead, we define "subformula" as follows.
+
+**Definition 1.4** The following rules define the _subformula_ of a formula.
+
+- Any formula is a subformula of itself.
+- Any subformula of $F$ is also a subformula of $\neg F$.
+- Any subformula of $F$ or $G$ is also a subformula of $(F \land G)$.
+
+**Example 1.5** Let $A$ and $B$ be atomic and let $F$ be the formula $\neg(\neg A \land \neg B)$
+The formula $A \land \neg B$ occurs as a substring of $F$, but it's not a subformula of $F$. There is no way
+to build the formula $F$ from the formula $A \land \neg B$. The subformulas of $F$ are $A$, $B$, $\neg A$, $\neg B$,
+$(\neg A \land \neg B)$, and $\neg(\neg A \land \neg B)$.
+
+| $A$ | $B$ | $\neg A$ | $\neg B$ |
+| --- | --- | -------- | -------- |
+| 0   | 0   | 1        | 1        |
+
+**Definition 1.6** The symbol $\lor$ is defined as follows: for any formulas $F$ and $G$, $(F \lor G)$ is an abbreviation for $\neg (\neg F \land \neg G)$. The
+formula $(F \lor G)$ is called the _disjunction_ of $F$ and $G$.
+
+**Definition 1.7** The symbol $\implies$ and $\iff$ are defined as follows:
+
+- $(F \implies G)$ abbr. $(G \lor \neg F)$, and
+- $(F \iff G)$ abbr. $((F \implies G) \land (G \implies F))$.
+
+### 1.2 Validity, satisfiability, and contradiction
+
+Let $S = \{A_1,...,A_n\}$ be a set of atomic formulas. Let $\digamma(S)$ be the set of all formulas that can be built from the atomic formulas in $S$.
+
+**Definition 1.9** An _assignment_ of $S$ is a function $A: S \mapsto \{0,1\}$.
+
+...
+
+Let $A$ be an assignment of $S$ and let $F$ be a formula. If $A(F) = 1$, then we say $F$ _holds_ under assignment $A$. Equivalently, we say $A$ _models_
+$F$. We write $A \models F$ to denote this concept.
+
+**Definition 1.11** A formula is _valid_ if it holds under every assignment. We use $ \models F$ to denote this. A valid formula is called a _tautology_.
+The formula $(C \lor \neg C)$ from the previous example is a tautology.
+
+**Definition 1.13** A formula is _satisfiable_ if it holds under some assignment.
+
+**Definition 1.14** A formula is _unsatisfiable_ if it holds under no assignment. An unsatisfiable formula is called a _contradiction_.
+
+The formula $(C \land \neg C)$ is a contradiction.
+
+Suppose that we want to determine whether or not a given formula is valid.This is an example of a _decision problem_. A decision problem is any problem
+that, given certain input, asks a question to be answered with a "yes" or a "no". Given formula $F$ as input, we may ask "Is $F$ valid?". We refer to
+this as the _validity problem_. Likewise, we may ask "Is $F$ satisfiable?", and refer to this the _satisfiable problem_.
+
+...
+
+Theoretically, we can determine whether any formula $F$ is valid, satisfiable or unsatisfiable by looking at a truth table. Unfortunately, this is not always
+an efficient method. If $F$ contains $n$ atomic formulas, then there are $2^n$ rows to compute in the truth table for $F$. So if $F$ happens to have, say,
+$23$ atomic formulas, then computing a truth table is not feasible. One of our aims in this chapter is to find alternative methods for resolving the validity
+and satisfiability problems that avoid truth tables. More generally, our aim is to contrive various ways of determining whether or not a given formula is
+a consequence of a given set of formulas. This is a central problem of any logic.
+
+### Consequence and equivalence
+
+We now introduce the fundamental notion of consequence. First, we define what it means for one formula to be a consequence of another. Later in this section,
+we similarly define what it means for a formula to be a consequence of a _set_ of formulas.
+
+**Definition 1.18** Formula $G$ is a _consequence_ of formula $F$ if for every assignment $A$, if $A \models F$ then $A \models G$. We denote this by $F \models G$.
+
+- $A \models F$ means that $A(F)=1$. We read this as "$A$ models $F$".
+- $G \models F$ means every assignment that models $G$ also models $F$. This is, $F$ is a consequence of $G$.
+- $\models F$ means every assignment models $F$. That is, $F$ is a tautology.
+
+**Proposition 1.19** For any formula $F$ and $G$, $G$ is a consequence of $F$ if and only if $F \implies G$ is a tautology.
+
+$$F \models G \iff \models (F \implies G)$$
