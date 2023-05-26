@@ -18,6 +18,9 @@ export const createAnInteractiveTOC = loadable.lib(
 export const originProtocol = loadable.lib(
   () => import("../blogs/origin-protocol.mdx")
 ) as Ta;
+export const aFirstCourseInLogic = loadable.lib(
+  () => import("../blogs/a-first-course-in-logic.mdx")
+) as Ta;
 
 export const posts = [
   {
@@ -29,4 +32,5 @@ export const posts = [
     title: "create an interactive table of contents",
   },
   { page: originProtocol, title: "origin protocol" },
+  { page: aFirstCourseInLogic, title: "A First Course in Logic" },
 ];
