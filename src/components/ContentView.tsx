@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { Toolbar } from "@mui/material";
 import { currentPageComponentAtom } from "../state";
-import { Box, Button } from "@mui/joy";
+import { Box, Button, Typography } from "@mui/joy";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import { posts } from "../state/posts";
@@ -43,12 +43,19 @@ function PageChanger() {
     </Box>
   );
 }
+function SuspenceContainer() {
+  return (
+    <Box sx={{ height: "100vh" }}>
+      <Typography>Loading...</Typography>
+    </Box>
+  );
+}
 export function ContentView() {
   const [{ page: Page }] = useAtom(currentPageComponentAtom);
   return (
     <>
       <Toolbar />
-      <Page fallback={<div>loading page</div>}>
+      <Page fallback={<SuspenceContainer />}>
         {({ default: Add }) => <Add />}
       </Page>
       <PageChanger />
