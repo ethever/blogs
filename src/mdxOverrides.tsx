@@ -77,7 +77,16 @@ export const components: TComponents = {
       </Typography>
     </Box>
   ),
-  p: ({ children }) => <Typography>{children}</Typography>,
+  p: ({ children }) => (
+    <Typography
+      sx={(theme) => ({
+        marginTop: theme.spacing(1.1),
+        marginBottom: theme.spacing(1.1),
+      })}
+    >
+      {children}
+    </Typography>
+  ),
   code: ({ className, children }) => {
     if (!className)
       return (
