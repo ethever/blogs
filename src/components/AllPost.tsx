@@ -4,7 +4,10 @@ import { currentPageComponentAtom } from "../state";
 import { posts } from "../state/posts";
 
 export default function AllPost() {
-  const [_, setPage] = useAtom(currentPageComponentAtom);
+  const [curPage, setPage] = useAtom(currentPageComponentAtom);
+
+  const curIndex = posts.findIndex((post) => post === curPage);
+
   return (
     <Box
       sx={{
@@ -18,6 +21,10 @@ export default function AllPost() {
             onClick={() => {
               setPage(post);
             }}
+            sx={(theme) => ({
+              background:
+                curIndex === index ? theme.vars.palette.neutral[800] : "unset",
+            })}
           >
             {post.title}
           </ListItemButton>

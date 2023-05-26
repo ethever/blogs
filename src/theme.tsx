@@ -32,6 +32,7 @@ export const chakraTheme = extendTheme({
           appBarBgActived: "transparent",
           blockquoteBorderColor: "brown",
           blockquoteBorder: "5px solid brown",
+          outlinedHoverBg: "#E6FFFA",
           inlineCode: "#0c111b",
         },
         background: {
