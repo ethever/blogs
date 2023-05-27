@@ -7,6 +7,8 @@ import TableOfContent from "./components/TableOfContent";
 import AllPost from "./components/AllPost";
 
 function App() {
+  const allPostsListMaxWidth = "280px";
+  const tableOfContentMaxWidth = "200px";
   return (
     <MDXProvider components={components}>
       <Container
@@ -19,7 +21,7 @@ function App() {
         }}
       >
         <Box
-          maxWidth="300px"
+          maxWidth={allPostsListMaxWidth}
           minHeight="100%"
           width="100%"
           sx={{
@@ -51,7 +53,7 @@ function App() {
         >
           <ContentView />
         </Box>
-        <Box maxWidth="300px" width="100%" minHeight="100%">
+        <Box maxWidth={tableOfContentMaxWidth} width="100%" minHeight="100%">
           <TableOfContent />
         </Box>
       </Container>
