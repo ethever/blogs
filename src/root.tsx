@@ -7,38 +7,42 @@ import {
 import { CssVarsProvider as JoyCssVarsProvider } from "@mui/joy/styles";
 import { chakraTheme, materialTheme } from "./theme.tsx";
 import React from "react";
+import { StyledEngineProvider } from "@mui/material/styles";
 
 export const Root = () => {
   return (
     <React.StrictMode>
-      <MaterialCssVarsProvider theme={{ [THEME_ID]: materialTheme }}>
-        <JoyCssVarsProvider
-          theme={chakraTheme}
-          defaultColorScheme="dark"
-          defaultMode="dark"
-        >
-          <CssBaseline />
-          <GlobalStyles
-            styles={{
-              body: {
-                width: "100%",
-                height: "100%",
-                overflowY: "scroll",
-              },
-              html: {
-                width: "100%",
-                height: "100%",
-                minHeight: "100vh",
-              },
-              "#root": {
-                height: "100%",
-                width: "100%",
-              },
-            }}
-          />
-          <App />
-        </JoyCssVarsProvider>
-      </MaterialCssVarsProvider>
+      <StyledEngineProvider injectFirst>
+        <MaterialCssVarsProvider theme={{ [THEME_ID]: materialTheme }}>
+          <JoyCssVarsProvider
+            theme={chakraTheme}
+            // defaultColorScheme="dark"
+            // defaultMode="dark"
+          >
+            <CssBaseline enableColorScheme />
+            <GlobalStyles
+              styles={{
+                body: {
+                  transition: "160ms",
+                  width: "100%",
+                  height: "100%",
+                  overflowY: "scroll",
+                },
+                html: {
+                  width: "100%",
+                  height: "100%",
+                  minHeight: "100vh",
+                },
+                "#root": {
+                  height: "100%",
+                  width: "100%",
+                },
+              }}
+            />
+            <App />
+          </JoyCssVarsProvider>
+        </MaterialCssVarsProvider>
+      </StyledEngineProvider>
     </React.StrictMode>
   );
 };
