@@ -81,6 +81,12 @@ devDependencies:
   eslint-plugin-react-refresh:
     specifier: ^0.3.4
     version: 0.3.4(eslint@8.38.0)
+  plugin-debug-label:
+    specifier: link:jotai/babel/plugin-debug-label
+    version: link:jotai/babel/plugin-debug-label
+  plugin-react-refresh:
+    specifier: link:jotai/babel/plugin-react-refresh
+    version: link:jotai/babel/plugin-react-refresh
   rehype-highlight:
     specifier: ^6.0.0
     version: 6.0.0

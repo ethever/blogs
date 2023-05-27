@@ -14,6 +14,8 @@ import rehypeSlug from "rehype-slug";
 import rehypeMdxTitle from "rehype-mdx-title";
 import { remarkMdxToc } from "remark-mdx-toc";
 import remarkNormalizeHeadings from "remark-normalize-headings";
+import jotaiDebugLabel from "jotai/babel/plugin-debug-label";
+import jotaiReactRefresh from "jotai/babel/plugin-react-refresh";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -48,7 +50,7 @@ export default defineConfig({
       }),
     },
     unfonts({ google: { families: ["Josefin Sans", "Nanum Gothic"] } }),
-    react(),
+    react({ babel: { plugins: [jotaiDebugLabel, jotaiReactRefresh] } }),
   ],
   // build: { minify: false },
 });
