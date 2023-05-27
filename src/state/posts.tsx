@@ -24,6 +24,7 @@ export const aFirstCourseInLogic = loadable.lib(
 export const latexMathsSymbols = loadable.lib(
   () => import("../blogs/latex-maths-symbols.mdx")
 ) as Ta;
+export const words = loadable.lib(() => import("../blogs/words.mdx")) as Ta;
 
 export const posts = [
   {
@@ -37,4 +38,5 @@ export const posts = [
   { page: originProtocol, title: "origin protocol" },
   { page: aFirstCourseInLogic, title: "A First Course in Logic" },
   { page: latexMathsSymbols, title: "latex maths sytmbols" },
+  { page: words, title: "worlds" },
 ];
