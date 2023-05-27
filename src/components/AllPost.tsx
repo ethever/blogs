@@ -22,8 +22,8 @@ export default function AllPost() {
               setPage(post);
             }}
             sx={(theme) => ({
-              background:
-                curIndex === index ? theme.vars.palette.neutral[800] : "unset",
+              // background:
+              // curIndex === index ? theme.vars.palette.neutral[800] : "unset",
             })}
           >
             {post.title}

@@ -33,7 +33,7 @@ export const chakraTheme = extendTheme({
           blockquoteBorderColor: "brown",
           blockquoteBorder: "5px solid brown",
           outlinedHoverBg: "#E6FFFA",
-          inlineCode: "#0c111b",
+          inlineCode: "#682929",
         },
         background: {
           main: "#0c111b",
@@ -42,12 +42,15 @@ export const chakraTheme = extendTheme({
     },
     light: {
       palette: {
+        neutral: {
+          // 800: "#ebebef",
+        },
         primary: {
           appBarBg: "transparent",
           appBarBgActived: "transparent",
           blockquoteBorderColor: "red",
           blockquoteBorder: "5px solid brown",
-          inlineCode: "#0c111b",
+          inlineCode: "#b9b9b9",
           solidBg: "#319795",
           solidHoverBg: "#2C7A7B",
           solidActiveBg: "#285E61",
@@ -56,6 +59,9 @@ export const chakraTheme = extendTheme({
           outlinedHoverBorder: undefined,
           outlinedHoverBg: "#E6FFFA",
           outlinedActiveBg: "#B2F5EA",
+        },
+        background: {
+          main: "#eee",
         },
         focusVisible: "rgba(66, 153, 225, 0.6)",
       },
