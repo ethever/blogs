@@ -1,4 +1,4 @@
-import { Box, Container, useTheme } from "@mui/joy";
+import { Box, Container } from "@mui/joy";
 import { MDXProvider } from "@mdx-js/react";
 import { components } from "./mdxOverrides";
 import DrawerAppBar from "./components/AppBar";
