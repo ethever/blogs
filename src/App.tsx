@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/joy";
+import { Box, Container, useTheme } from "@mui/joy";
 import { MDXProvider } from "@mdx-js/react";
 import { components } from "./mdxOverrides";
 import DrawerAppBar from "./components/AppBar";
@@ -7,8 +7,6 @@ import TableOfContent from "./components/TableOfContent";
 import AllPost from "./components/AllPost";
 
 function App() {
-  const allPostsListMaxWidth = "280px";
-  const tableOfContentMaxWidth = "200px";
   return (
     <MDXProvider components={components}>
       <Container
@@ -21,7 +19,7 @@ function App() {
         }}
       >
         <Box
-          maxWidth={allPostsListMaxWidth}
+          maxWidth="xs2"
           minHeight="100%"
           width="100%"
           sx={{
@@ -53,7 +51,7 @@ function App() {
         >
           <ContentView />
         </Box>
-        <Box maxWidth={tableOfContentMaxWidth} width="100%" minHeight="100%">
+        <Box maxWidth="xs1" width="100%" minHeight="100%">
           <TableOfContent />
         </Box>
       </Container>
