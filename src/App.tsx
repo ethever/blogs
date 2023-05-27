@@ -45,6 +45,7 @@ function App() {
           width="100%"
           height="100%"
           sx={(theme) => ({
+            padding: `0 ${theme.spacing(2)}`,
             background: theme.vars.palette.background.main,
           })}
         >

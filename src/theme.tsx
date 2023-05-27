@@ -36,7 +36,7 @@ export const chakraTheme = extendTheme({
           inlineCode: "#0c111b",
         },
         background: {
-          main: "tranparent",
+          main: "#0c111b",
         },
       },
     },
