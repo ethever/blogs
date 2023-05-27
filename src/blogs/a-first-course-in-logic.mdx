@@ -96,7 +96,7 @@ The formula $(C \lor \neg C)$ from the previous example is a tautology.
 
 The formula $(C \land \neg C)$ is a contradiction.
 
-Suppose that we want to determine whether or not a given formula is valid.This is an example of a _decision problem_. A decision problem is any problem
+Suppose that we want to determine whether or not a given formula is valid. This is an example of a _decision problem_. A decision problem is any problem
 that, given certain input, asks a question to be answered with a "yes" or a "no". Given formula $F$ as input, we may ask "Is $F$ valid?". We refer to
 this as the _validity problem_. Likewise, we may ask "Is $F$ satisfiable?", and refer to this the _satisfiable problem_.
 
@@ -122,3 +122,12 @@ we similarly define what it means for a formula to be a consequence of a _set_ o
 **Proposition 1.19** For any formula $F$ and $G$, $G$ is a consequence of $F$ if and only if $F \implies G$ is a tautology.
 
 $$F \models G \iff \models (F \implies G)$$
+
+### 1.4 Formal proofs
+
+A logic, by definition, has rules for reducing the truth of one sentence from that of another. These rules yield a system of formal proof. In this section, we describe
+such a proof system for propositional logic.
+
+A _proof system_ consists of a basic rules for derivations. These rules allow us to deduce formulas from sets of formulas.
+It may take serveral steps to derive a given formula $G$ from a set of formulas $\digamma$, where each "step" is an application of one of the basic rules.
+The list of these forms a _formal proof_ of $G$ from $\digamma$.
