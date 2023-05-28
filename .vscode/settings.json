@@ -1,0 +1,21 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.options": {
+    "extensions": [".js", ".jsx", ".md", ".mdx", ".ts", ".tsx"]
+  },
+  "eslint.validate": [
+    "mdx",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.runtime": "node",
+  "mdx.experimentalLanguageServer": true,
+  "[mdx]": {
+    "editor.wordWrap": "on"
+  },
+  "editor.minimap.enabled": false
+}

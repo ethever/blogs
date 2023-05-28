@@ -7,6 +7,8 @@ We show that, in a certain setting (namely, graph thery) the complexity classes 
 For example, Fagin's Theorem states that (for graphs) $NP$ contains precisely those decision problems that can be expressed in second-order
 exsitential logic. So the $N = NP$ problem and related questions can be rephrased as questions of whether or not two logics are equivalent.
 
+$\mathcal H$
+
 # Sets and strctures
 
 We assume that the reader is familiar with the fundamental notion of _a set_. We use standard set notation:
@@ -121,7 +123,9 @@ we similarly define what it means for a formula to be a consequence of a _set_ o
 
 **Proposition 1.19** For any formula $F$ and $G$, $G$ is a consequence of $F$ if and only if $F \implies G$ is a tautology.
 
-$$F \models G \iff \models (F \implies G)$$
+$$
+F \models G \iff \models (F \implies G)
+$$
 
 ### 1.4 Formal proofs
 
@@ -131,3 +135,199 @@ such a proof system for propositional logic.
 A _proof system_ consists of a basic rules for derivations. These rules allow us to deduce formulas from sets of formulas.
 It may take serveral steps to derive a given formula $G$ from a set of formulas $\digamma$, where each "step" is an application of one of the basic rules.
 The list of these forms a _formal proof_ of $G$ from $\digamma$.
+
+...
+
+## 2 Strctures and first-order logic
+
+### 2.1 The language of first-order logic
+
+First-order logic is a richer language than propositional logic. Its lexicon contains
+not only the symbols $\land$, $\lor$, $\neg$, $\implies$, and $\iff$ (and parenthneses)
+from propositional logic, but also the symbols $\exists$ and $\forall$ for "there exsits"
+and "for all", along with various symbols to represent variables, constants, functions, and relations.
+These symbols are grouped into five categories.
+
+- **Variables** Lower case letters from the end of the alphabet (...$x$,$y$,$z$) are used to denote
+  variables.
+
+- **Constants** Lower case letters from the beginning of the alphabet ($a$,$b$,$c$,...) are usually used to
+  denote constants.
+
+- **Functions** The lower case letters $f$, $g$, and $h$ are commonly used to denote functions.
+
+- **Relations** Capital letters, especially $P$, $Q$, $R$, and $S$ are used to denote relations.
+
+- **Fixed symbols** $\land$, $\lor$, $\neg$, $\implies$, $\iff$, $($,$)$, $\exists$, $\forall$.
+
+The fixed symbols $\exists$ and $\forall$, called _quantifier_, make the language of
+first-order logic far more expressive than propositional logic.
+
+The following is an example of a sentence of first-order logic: $\forall y \exists x R(f(x), y)$.
+This sentence says that for all $y$ there exists $x$ such that the relation $R$ holds for the ordered
+pair $(f(x), y)$.
+
+### 2.2 The `syntax` of first order logic
+
+The definition of _a formula_ in first-order logic is analogous to the definition of
+formula in propositional logic.
+
+...
+
+Prior to defining formulas, we must define the term _term_. Terms are defined as inductively
+by the following two rules.
+
+- (T1) Every variable and constant is a term.
+- (T2) If $f$ is an _m-ary_ function and $t_1$,...,$t_m$ are terms, then $f(t_1, ..., t_m)$ is also a term.
+
+**Definition 2.1** An _atomic formula_ is a formula that has the form $t_1 = t_2$ or $R(t_1, ..., t_n)$
+where $R$ is an _n_ary_ relation and $t_1, ..., t_n$ are terms.
+
+As with propositional logic, we regard some of the fixed symbols as _primitive_.
+The other symbols are defined in terms of the primitive symbols. We view $\neg$, $\land$, and $\exists$ as primitive.
+Every formula of first-order logic is built from atomic formulas by repeated application of three ruls.
+
+- (R1) If $\varphi$ is a formula then so is $\neg \varphi$.
+- (R2) If $\varphi$ and $\psi$ are formulas the so is $\varphi \land \psi$.
+- (R3) If $varphi$ is a formula, then so is $\exists x \varphi$ for any variable $x$.
+
+Note that (R1) and (R2) were also rules for propositional logic, and only the rule (R3) is new.
+
+...
+
+So whether a sentence is true or not depends on two things: our underlying set and our interpretation
+of the function, constant, and relation symbols. This observation leads us to the central concept of
+this chapter.
+A _strcture_ consists of an underlying set together with an interpretation of various functions, constants,
+and relations. The role of strctures in first-order logic is analogous to the role played by assignments in propositional logic.
+
+Given any sentence $\varphi$ and any strcture $M$, we define what it means for $M$ to _model_ $\varphi$.
+Intuitively, this means that the sentence $\varphi$ is true with respect to $M$. As in propositional logic, we write $M \models \varphi$ to denote this concept.
+
+Strctures naturally arise in many branches of mathematics. For example, a vector space is a strcture.
+The group, rings, and fields of abstract algebra also provide examples of strctures. In graph theory, the graphs can be viewed as first-order
+strctures (we shall discuss this in detail in Section 2.4). The real numbers provide examples of strctures that should be familiar to all readers.
+The real numbers form not one strcture, but many. Recall that a strcture has two components: an underlying set and an interpretation of certan functions,
+constants, and relations. ... The functions, constants, and relations that we choose to consider is called the _vocabulary_ of the structure.
+Each choice of a vocabulary determines a different structure having the real numbers as an underlying set.
+
+**Definition 2.12** A _vocabulary_ is a set of function, relation, and constant symbols.
+
+**Definition 2.13** Let $\mathcal V$ be a vocabulary. A $\mathcal V$_-structure_ consists of a nonempty underlying set $U$ along with an interpretation
+of $\mathcal V$. An _interpretation_ of $\mathcal V$ assigns:
+
+- an element of $U$ to each constant in $\mathcal V$,
+- a function from $U^n$ to $U$ to each _n-ary_ function in $\mathcal V$, and
+- a subset of $U^n$ to each _n-ary_ relation in $\mathcal V$.
+
+We say $M$ is a structure if it's a $\mathcal V$_-structure_ for some vocabulary $\mathcal V$.
+
+We present structures by listing the underlying set, or _universe_, followed by the function, relation, and constant symbols that it interprets.
+
+**Example 2.14** Let $\mathcal V = \{f, R, c\}$ where $f$ is a unary function, $R$ is a binary relation, and $c$ is a constant. Then $M = (\mathbb Z | f, R, c)$ denotes a
+$\mathcal V$_-structure_. The universe of $M$ is the set of integers $\mathbb Z$. To complete the description of $M$, we must say how the symbols of $\mathcal V$ are to be interpreted.
+We may say, for example, that $M$ interprets $f(x)$ as $x^2$, $R(x, y)$ as $x< y$, and the constant $c$ as $3$. This completely describe the structure $M$.
+
+...
+
+We define $M \models \varphi$ by induction on the total number of occurences of the symbols $\land$, $\neg$, and $\exists$. If $\varphi$ has zero occurences of these symbols,
+then $\varphi$ is atomic.
+
+## 2.4 Examples of structures
+
+Let us now examine some specific structures. We consider four types of structures that one encounters in mathematics and computer science: number system, linear orders, databases, and graph.
+
+### 2.4.1 Graph
+
+We can view any graph as a structure $G$ as follows. The underlying set $U$ of $G$ is the set of vertices. The vocabulary $\mathcal V_G$ of $G$ consists of a single binary relation $R$.
+The structure $G$ interprets $R$ as the edge relation. That is, for elements $a$ and $b$ of $U$, $G \models R(a, b)$ if and only if the graph has an edge between vertices $a$ and $b$.
+
+### 2.4.2 Databases
+
+### 2.4.3 Linear orders
+
+Next, we look at some structures in the vocabulary $\mathcal{V_{< }}$ consisting solely of the binary relation $< $.
+
+...
+
+A linear ordered set is _dense_ if between any two elements, there is another element. This property can be expressed in first-order logic by the following $\mathcal{V_{< }}$-sentence.
+
+$$
+\forall x \forall y ((x < y) \implies \exists z ((x < z) \land (z < y)))
+$$
+
+A linear order is **order-complete** if it can not be split into two open intervals. The set of rational numbers, for example, is the union of the intervals $(-\infty, \sqrt 2)$ and
+$(\sqrt 2, \infty)$. The parenthneses "(" and ")" indicate that the intervals do not contain the end points (this is what we mean by "open").
+
+### 2.4.4 Number systems
+
+The Fundamental Theorem of Algebra states that for any nonconstant polynomial $P(x)$ having coefficients in $\mathbb C$, the equation $P(x) = 0 $ has a solution in $\mathbb C$.
+
+The strcuture $\mathbb A$ is not so nice. The "A" stands for arithmetic, which sounds quite elementary. However, from the point of view of first-order logic, $\mathbb A$ is most complex.
+
+## 2.5 The size of a structure
+
+**Definition 2.33** Let $A$ and $B$ be sets. We define "$|B| \le |A|$" as follows: $|B| \le |A|$ if there exists a one-to-one function $f$ from $B$ into $A$.
+
+**Assumption:** If $A$ and $B$ are sets, then $|A| \le |B|$ or $|B| \le |A|$.
+For infinite $A$ and $B$, we accept this assumption without proof. It's equivalent to an axiom of mathematics known as the **Axiom of Choice**.
+
+**The continuum hypothesis** $2^{\aleph_{0}} = \aleph_1$
+
+More generally, is this how cardinal exponentiation behaves for all cardinals?
+
+**The general continuum hypothesis** For each ordinal $\alpha$, $2^{\aleph_\alpha} = \aleph_{\alpha + 1}$.
+
+As the word "hypothesis" suggests, this statement has neither been proved nor disaproved. Remarkably, it _cannot_ be proved or disaproved from the standard axioms for mathematics.
+It's _independent_ from these axioms. This has been proved!
+
+The standard axioms of mathematics are **Zermeleo-Frankel** set theory with the previous mentioned Axiom of Choice. These axioms are denoted **ZFC**.
+
+### 3.2.2 Skolem normal form
+
+**Definition 3.20** A formula is in Skolem normal form (SNF), if it's universal and
+in conjunctive prenex normal form.
+
+## 4.7 The expressive power of first-order logic
+
+First-order logic, as any logic, is a language equipped with rules for deducing the truth of one sentence from that of another. These rules may be formulated as
+systems of deduction such as resolution and formal proofs discussed in Chapter 3.
+In this chapter, we have shown that the rules of deduction for first-order logic entail many nice properties. These properties give rise to the model theory of the next two
+chapters. Because of these desirable properties, the language of first-order logic is necessarily weak.
+
+By compactness, there cannot exist a sentence of first-order logic that holds for infinite structures and only holds for infinite structures. By the
+Downward Lowenheim-Skolem Theorem, there cannot exist a sentence of first-order logic that holds for uncountable structures and only uncountable structures.
+
+- Linear orders: there is no first-order sentence that holds for well ordered sets and only well ordered sets.
+- Group theory: there is no first-order sentence that holds for simple groups and only simple groups.
+- Ring theory: there is no first-order sentence that holds for Noetherian rings and only Noetherian rings.
+- Metric spaces: here is no first-order sentence that holds for complete metrics spaces and only complete metric spaces. In particular, the notion of a
+  _Cauchy sequence_ cannot be defined.
+
+To express these and other concepts, we must extend the logic. In chapter 9, we consider extensions of first-order logic such as infinitary logics and second-order logic.
+Infinitary logics permit as formulas infinite conjunctions and disjunctions of first-order formulas.
+
+## 5 First-order theories
+
+We continue our study of Model Theory.
+
+## 7 Computability and complexity
+
+There are only countablly many algorithms and uncountably many probelms to solve.
+
+## 8 The imcompleteness theorems
+
+$$
+
+\begin{align*}
+\mathcal{L} &= - \frac{1}{4} F*{\mu \nu} F^{\mu \nu} \\
+&\phantom{{}=}+ i \bar{\psi} \cancel{D} \psi + h.c. \\
+&\phantom{{}=}+ \bar{\psi}\_i y*{ij} \psi*j \phi + h.c. \\
+&\phantom{{}=}+ |D*\mu \phi|^2 - V(\phi)
+\end{align*}
+
+
+$$
+
+$$
+$$

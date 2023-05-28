@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import mdx from "@mdx-js/rollup";
 import remarkMath from "remark-math";
-import rehypeMathjax from "rehype-mathjax";
+// import rehypeMathjax from "rehype-mathjax";
 import rehypeHighlight from "rehype-highlight";
 import haskell from "highlight.js/lib/languages/haskell";
 import bash from "highlight.js/lib/languages/bash";
@@ -16,6 +16,7 @@ import { remarkMdxToc } from "remark-mdx-toc";
 import remarkNormalizeHeadings from "remark-normalize-headings";
 import jotaiDebugLabel from "jotai/babel/plugin-debug-label";
 import jotaiReactRefresh from "jotai/babel/plugin-react-refresh";
+import rehypeKatex from "rehype-katex";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,7 +28,8 @@ export default defineConfig({
         rehypePlugins: [
           rehypeMdxTitle,
           rehypeSlug,
-          rehypeMathjax,
+          // rehypeMathjax,
+          rehypeKatex,
           // [
           //   rehypePrettyCode,
           //   {
