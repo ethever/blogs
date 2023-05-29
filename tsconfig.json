@@ -18,16 +18,26 @@
     "noFallthroughCasesInSwitch": true,
     "types": ["mdx", "vite/client", "unplugin-fonts/client"]
   },
-  // "mdx": {
-  //   "plugins": [
-  //     "remark-preset-lint-recommended",
-  //     "remark-preset-lint-consistent",
-  //     "remark-preset-lint-markdown-style-guide",
-  //     "remark-math",
-  //     "remark-gfm"
-  //   ]
-  //   // "plugins": [["remark-frontmatter", ["toml", "yaml"]], "remark-gfm"]
-  // },
+  "mdx": {
+    "settings": {
+      "bullet": "*",
+      "ruleRepetition": 3,
+      "fences": true,
+      "emitParseErrors": true
+    },
+    "plugins": [
+      "remark-math",
+      "remark-preset-lint-recommended",
+      // "remark-preset-lint-consistent",
+      // "remark-preset-lint-markdown-style-guide",
+      "remark-gfm"
+      // ["remark-lint-maximum-line-length", ["off"]],
+      // ["remark-lint-emphasis-marker", ["off"]],
+      // ["remark-lint-list-item-indent", ["off"]],
+      // ["remark-lint-no-undefined-references", ["off"]]
+    ]
+    // "plugins": [["remark-frontmatter", ["toml", "yaml"]], "remark-gfm"]
+  },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
