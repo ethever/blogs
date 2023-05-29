@@ -28,6 +28,9 @@ export const words = loadable.lib(() => import("../blogs/words.mdx")) as Ta;
 export const bitTorrent = loadable.lib(
   () => import("../blogs/bittorrent.mdx")
 ) as Ta;
+export const booksSources = loadable.lib(
+  () => import("../blogs/books-sources.mdx")
+) as Ta;
 
 export const posts = [
   {
@@ -43,4 +46,5 @@ export const posts = [
   { page: latexMathsSymbols, title: "latex maths sytmbols" },
   { page: words, title: "worlds" },
   { page: bitTorrent, title: "The BitTorrent Protocol" },
+  { page: booksSources, title: "Books Sources" },
 ];
