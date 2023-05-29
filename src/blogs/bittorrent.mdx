@@ -1,0 +1,27 @@
+# The BitTorrent Protocol
+
+**BitTorrent** is a communication protocol for peer-to-peer file sharing (P2P), which enables users to distribute data and electronic files over the Internet in a decentralized manner.[^1]
+[^1] https://en.wikipedia.org/wiki/BitTorrent
+
+The use of BitTorrent may sometimes be limited by Internet Service Providers(ISPs), on legal or copyright grounds. Users may choose to run seedboxes or virtual private networks(VPNs) to circumvent these restrictions.
+
+## Gossip Protocol
+
+A **gossip protocol** or **epidemic protocol** is a procedure or process of computer peer-to-peer communication that is based on the way epidemic spread. Some distributed systems use
+peer-to-peer gossip to ensure that data is disseminated to all members of a group.
+Some [ad-hoc network](https://en.wikipedia.org/wiki/Wireless_ad_hoc_network) have no central registry and the only way to spread common data is to rely on each member to pass it
+along to their neighbors.
+
+### Communication
+
+The concept of _gossip communication_ can be illustrated by the analogy of office worker spreading rumors.
+
+#### Examples
+
+Suppose that we want to find the object that most closely matches some search pattern, within a network of unknown size, but where the computers are linked to one another and where
+each mechine is running a small _agent_ program that implments a _gossip_ protocol.
+
+- To start the search, a user would ask the local agent to begin to gossip about the search string. (We're assuming that agents either start with a known list of peers, or retrieve this information from some kind of a shared store.)
+- Periodically, at some rate (let's say ten times per second, for simplicity), each agent picks some other agent at random, and gossips with it. Search strings known to A will now also be known to B, and vice versa. In the next "round" of gossip A and B will pick additional random peers, maybe C and D. This round-by-round doubling phenomenon makes the protocol very robust, even if some messages get lost, or some of the selected peers are the same or already know about the search string.
+- On receipt of a search string for the first time, each agent checks its local machine for matching documents.
+- Agents also gossip about the best match, to date. Thus, if A gossips with B, after the interaction, A will know of the best matches known to B, and vice versa. Best matches will "spread" through the network.
