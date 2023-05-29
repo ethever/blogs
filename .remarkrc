@@ -32,6 +32,12 @@
       [
         "off"
       ]
+    ],
+    [
+      "remark-lint-no-literal-urls",
+      [
+        "off"
+      ]
     ]
   ]
 }
