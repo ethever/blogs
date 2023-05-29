@@ -26,6 +26,12 @@
       [
         "off"
       ]
+    ],
+    [
+      "remark-lint-no-undefined-references",
+      [
+        "off"
+      ]
     ]
   ]
 }
