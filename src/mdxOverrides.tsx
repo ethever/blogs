@@ -87,6 +87,20 @@ export const components: TComponents = {
       {children}
     </Typography>
   ),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  Image: ({ children, alt, ...props }) => {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <img width="100%" alt={alt ?? "image"} {...props} />
+      </Box>
+    );
+  },
   code: ({ className, children }) => {
     if (!className)
       return (

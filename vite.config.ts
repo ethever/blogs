@@ -17,9 +17,15 @@ import remarkNormalizeHeadings from "remark-normalize-headings";
 import jotaiDebugLabel from "jotai/babel/plugin-debug-label";
 import jotaiReactRefresh from "jotai/babel/plugin-react-refresh";
 import rehypeKatex from "rehype-katex";
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@assets": path.resolve(__dirname, "./src/assets"),
+    },
+  },
   plugins: [
     {
       enforce: "pre",
