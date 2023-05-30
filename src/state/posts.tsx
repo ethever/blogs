@@ -2,11 +2,10 @@ import loadable from "@loadable/component";
 import { TocEntry } from "remark-mdx-toc";
 import { LoadableLibrary } from "@loadable/component";
 
-export type Ta = LoadableLibrary<
-  typeof import("*.mdx") & {
-    toc: TocEntry[];
-  }
->;
+type Q = typeof import("*.mdx") & {
+  toc: TocEntry[];
+};
+export type Ta = LoadableLibrary<Q>;
 
 export const tutorial = loadable.lib(() => import("../blogs/a.mdx")) as Ta;
 export const createAnInteractiveTOC = loadable.lib(
@@ -35,6 +34,12 @@ export const blogs = loadable.lib(() => import("../blogs/blogs.mdx")) as Ta;
 export const filecoin = loadable.lib(
   () => import("../blogs/filecoin.mdx")
 ) as Ta;
+
+// eslint-disable-next-line react-refresh/only-export-components
+function Load(im: Promise<Q>) {
+  return loadable.lib(() => im) as Ta;
+}
+
 export const posts = [
   {
     page: tutorial,
@@ -46,10 +51,16 @@ export const posts = [
   },
   { page: originProtocol, title: "origin protocol" },
   { page: aFirstCourseInLogic, title: "A First Course in Logic" },
-  { page: latexMathsSymbols, title: "latex maths sytmbols" },
+  { page: latexMathsSymbols, title: "latex maths symbols" },
   { page: words, title: "worlds" },
   { page: bitTorrent, title: "The BitTorrent Protocol" },
   { page: booksSources, title: "Books Sources" },
   { page: blogs, title: "Blogs" },
   { page: filecoin, title: "filecoin" },
+  {
+    page: Load(
+      import("../blogs/Zero knowledge Proof.mdx") as unknown as Promise<Q>
+    ),
+    title: "Zero knowledge proof",
+  },
 ];

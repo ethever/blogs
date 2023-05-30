@@ -1,0 +1,33 @@
+# Zero-knowledge Proof
+
+- non-interactive zero-knowledge proofs
+- interactive zero-knowledge proofs
+
+## A zero-knowledge proof of some statement must satisfy three properties:
+
+- Completeness: if the statement is true, an honest verifier (that is, one following the protocol properly) will be convinced of this fact by an honest prover.
+- Soundness: if the statement is false, no cheating prover can convince an honest verifier that it is true, except with some small probability.
+- Zero-knowledge: if the statement is true, no verifier learns anything other than the fact that the statement is true. In other words, just knowing the statement (not the secret) is sufficient to imagine a scenario showing that the prover knows the secret. This is formalized by showing that every verifier has some simulator that, given only the statement to be proved (and no access to the prover), can produce a transcript that "looks like" an interaction between an honest prover and the verifier in question.
+
+> Zero-knowledge proofs are not proofs in the mathematical sense of the term because there is some small probability, the _soundness error_, that a cheating prover will be able to convince the verifier of a false statement. In other words, zero-knowledge proofs are probabilistic "proofs" rather than deterministic proofs. However, there are techniques to decrease the soundness error to negligibly small values (e.g. guessing correctly on a hundred or thousand binary decisions has a 1 / 2^100 or 1/ 2^1000 soundness error, respectively. As the number of bits increases, soundness error decreases toward zero).
+
+A formal definition of zero-knowledge has to use some computational model, the most common one being the that of a Turing machine. Let $P$, $V$, and $S$ be Turing machines. An interactive proof system with $(P, V)$ for a language $L$ is zero-knowledge if for any probabilistic polynomial time(PPT) verifier $\hat{V}$ there exists a PPT simulator $S$ such that
+
+$$
+\forall x \in L, z \in \{0, 1\}^{\ast}, View_{\hat{V}}[P(x) \iff \hat{V}(x, z)] = S(x, z)
+$$
+
+where $View_{\hat{V}}[P(x) \iff \hat{V}(x, z)]$ is a record of the interactions between $P(x)$ and $\hat{V}(x, z)$. The prover $P$ is definition states that an interaction proof system $(P, V)$ is zero-knowledge if for any verifier $\hat{V}$ there exists an efficient simulator $S$ (depending on $\hat{V}$) that can reproduce the conversation between $P$ and $\hat{V}$ on any given input. The auxiliary string $z$ in the definition plays the role of "prior knowledge"(including the random coins of $\hat{V}$). The definition implies that $\hat{V}$ cannot use any prior knowledge string $z$ to mine information out of its conversation with $P$, because if $S$ is also given this prior knowledge then it can reproduce the conversation between $\hat{V}$ and $P$ just as before.
+
+## Practical examples
+
+### Discrete log of a given values
+
+We can apply these ideas to a more realistic cryptography application. Peggy wants to prove to Victor that she knows the discrete log og a given value in a given group.
+
+For example, given a value $y$, a large prime $p$ and a generator $g$, she wants to prove that she knows a value $x$ such that $g^x \mod p = y$, without revealing $x$. Indeed, knowledge of $x$ could be used as a proof of identity, in that Peggy could have such knowledge because she chose a random value $x$ that she didn't reveal to anyone, computed $y=g^x \mod p$ and distributed the value of $y$ to all potential verifiers, such that at a later time, proving knowledge of $x$ is equivalent to proving identity as Peggy.
+
+The protocol proceeds as follows: in each round, Peggy generates a random number $r$, computes $C=g^r \mod p$ and discloses this to Victor. After receiving $C$, Victor randomly issues one of the following two requests: he either requests that Peggy discloses the value of $r$, or the value of $(x + r) \mod (p - 1)$. With either answer, Peggy is only disclosing a random value, so on information is disclosed by a correct execution of one round of the protocol.
+
+Victor can verify either answer; if he requested $r$, he can then compute $g^r\mod p$ and verify that it matches $C$. If he requested $(x+r) \mod (p-1)$, he can verify that $C$ is consistent with this, by computing $g^{(x+ r) \mod (p-1)} 
+mod p$ and verifying that it matches $(C\times y) \mod p$. If Peggy indeed knows the value of $x$, she can respond to either one of Victor's possible challenges.
