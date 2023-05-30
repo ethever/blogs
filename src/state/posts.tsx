@@ -32,7 +32,9 @@ export const booksSources = loadable.lib(
   () => import("../blogs/books-sources.mdx")
 ) as Ta;
 export const blogs = loadable.lib(() => import("../blogs/blogs.mdx")) as Ta;
-
+export const filecoin = loadable.lib(
+  () => import("../blogs/filecoin.mdx")
+) as Ta;
 export const posts = [
   {
     page: tutorial,
@@ -49,4 +51,5 @@ export const posts = [
   { page: bitTorrent, title: "The BitTorrent Protocol" },
   { page: booksSources, title: "Books Sources" },
   { page: blogs, title: "Blogs" },
+  { page: filecoin, title: "filecoin" },
 ];
