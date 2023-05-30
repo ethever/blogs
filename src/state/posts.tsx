@@ -31,6 +31,7 @@ export const bitTorrent = loadable.lib(
 export const booksSources = loadable.lib(
   () => import("../blogs/books-sources.mdx")
 ) as Ta;
+export const blogs = loadable.lib(() => import("../blogs/blogs.mdx")) as Ta;
 
 export const posts = [
   {
@@ -47,4 +48,5 @@ export const posts = [
   { page: words, title: "worlds" },
   { page: bitTorrent, title: "The BitTorrent Protocol" },
   { page: booksSources, title: "Books Sources" },
+  { page: blogs, title: "Blogs" },
 ];
