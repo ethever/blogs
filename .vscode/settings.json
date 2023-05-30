@@ -19,5 +19,10 @@
   "editor.minimap.enabled": false,
   "cSpell.language": "en,en-US",
   "cSpell.enableFiletypes": ["mdx"],
-  "cSpell.words": ["cryptoeconomic", "cryptoeconomics", "Filecoin"]
+  "cSpell.words": [
+    "cryptoeconomic",
+    "cryptoeconomics",
+    "Filecoin",
+    "timeframes"
+  ]
 }
