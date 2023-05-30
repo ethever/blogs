@@ -35,15 +35,15 @@ function PageChanger() {
       })}
     >
       <Button onClick={lastPage} startDecorator={<KeyboardArrowLeftIcon />}>
-        Last Post
+        Last Article
       </Button>
       <Button onClick={nextPage} endDecorator={<KeyboardArrowRightIcon />}>
-        Next Post
+        Next Article
       </Button>
     </Box>
   );
 }
-function SuspenceContainer() {
+function SuspenseContainer() {
   return (
     <Box sx={{ height: "100vh" }}>
       <Typography>Loading...</Typography>
@@ -60,7 +60,7 @@ export function ContentView() {
           overflowX: "hidden",
         }}
       >
-        <Page fallback={<SuspenceContainer />}>
+        <Page fallback={<SuspenseContainer />}>
           {({ default: Add }) => <Add />}
         </Page>
       </Box>
