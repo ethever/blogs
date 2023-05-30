@@ -16,5 +16,7 @@
   "[mdx]": {
     "editor.wordWrap": "on"
   },
-  "editor.minimap.enabled": false
+  "editor.minimap.enabled": false,
+  "cSpell.language": "en,en-US",
+  "cSpell.enableFiletypes": ["mdx"]
 }
