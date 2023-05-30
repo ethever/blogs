@@ -55,9 +55,15 @@ export function ContentView() {
   return (
     <>
       <Toolbar />
-      <Page fallback={<SuspenceContainer />}>
-        {({ default: Add }) => <Add />}
-      </Page>
+      <Box
+        sx={{
+          overflowX: "hidden",
+        }}
+      >
+        <Page fallback={<SuspenceContainer />}>
+          {({ default: Add }) => <Add />}
+        </Page>
+      </Box>
       <PageChanger />
       <Toolbar />
     </>
