@@ -58,6 +58,7 @@ export function ContentView() {
       <Box
         sx={{
           overflowX: "hidden",
+          minHeight: "100%",
         }}
       >
         <Page fallback={<SuspenseContainer />}>
